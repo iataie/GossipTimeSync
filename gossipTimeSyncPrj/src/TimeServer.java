@@ -3,8 +3,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 
-
-
 public class TimeServer {
     public static void main(String[] args) throws IOException {
         ServerSocket listener = new ServerSocket(9090);
@@ -36,7 +34,6 @@ class Handler extends Thread {
         try {
             //in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             //out = new PrintWriter(socket.getOutputStream(), true);
-
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
@@ -51,19 +48,14 @@ class Handler extends Thread {
                 }
                 if(r.getMsg_type().compareToIgnoreCase("Ready")==0)
                 {
-                    // System.out.println("2222222");
-
                     //r.setTime(new Date().getTime());
                     r.setMsg_type("Sync");
                     oos.writeObject(r);
-                    //System.out.println("333333333");
                     syncIssuedTimestamp=new Date().getTime();
                     Msg r2=new Msg();
                     r2.setTime(syncIssuedTimestamp);
                     r2.setMsg_type("FolllowUp");
                     oos.writeObject(r2);
-                    //System.out.println("444444444");
-
                     r=(Msg)ois.readObject();
                     delayRecTimestamp=new Date().getTime();
                     if(r.getMsg_type().compareToIgnoreCase("DelayReq")==0) {
