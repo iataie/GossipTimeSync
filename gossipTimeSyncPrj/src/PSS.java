@@ -46,8 +46,6 @@ public class PSS {
 
     public static void main(String[] args) throws IOException {
 
-
-
         new PssUDPHandler().start();
 
         ServerSocket listener = new ServerSocket(7080);
@@ -61,7 +59,6 @@ public class PSS {
             listener.close();
         }
     }
-
 }
 
 class PssHandler extends Thread {
@@ -70,11 +67,9 @@ class PssHandler extends Thread {
     private BufferedReader in;
     private PrintWriter out;
 
-
     public PssHandler(Socket socket) {
         this.socket = socket;
     }
-
 
     public void run() {
         Msg r = new Msg();
@@ -218,6 +213,5 @@ class PssUDPHandler extends Thread {
             e1.printStackTrace();
         }
         return false;
-
     }
 }
