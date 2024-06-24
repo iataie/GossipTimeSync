@@ -82,12 +82,9 @@ class PssHandler extends Thread {
         try {
             //in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             //out = new PrintWriter(socket.getOutputStream(), true);
-
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-
             r = (Msg) ois.readObject();
-            //System.out.println("1111111");
             if (r.getMsg_type().compareToIgnoreCase("GetPeerReq") == 0) {
                 InetAdd node = PSS.getPeerNode();
                 r.setMsg_type("GetPeerResp");
@@ -105,10 +102,8 @@ class PssHandler extends Thread {
             }
             if (r.getMsg_type().compareToIgnoreCase("REG") == 0) {
                 PSS.addNode(r.getIP_Add(), r.getPort_Num());
-
                 //r.setMsg_type("ACK_REG"); //removed because of non ACK
                 //oos.writeObject(r);
-
             } else {
                 r.setMsg_type("UNKNOWN_REQ");
                 oos.writeObject(r);
@@ -187,7 +182,6 @@ class PssUDPHandler extends Thread {
                     }
                     System.out.println("--recived Req(UDP): " + msgClinet.getMsg_type() + " For IP(Port): " + msgClinet.getIP_Add() + ":" + msgClinet.getPort_Num());
                 }
-
 
                 /* // Ack of recieved packet should be removed
                 byte[] outBuffer = new java.util.Date ().toString ().getBytes ();
