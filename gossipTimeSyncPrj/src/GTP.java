@@ -8,7 +8,6 @@ public class GTP {
         ServerSocket listener = null;
         Timer localTimer=null;
 
-
         if(args.length>0)
             localTimer = new Timer(new Date().getTime(),Integer.parseInt(args[0]));
         else
@@ -16,7 +15,6 @@ public class GTP {
 
         localTimer.start();
         new TimerUpdater(localTimer).start();
-
 
         //************************************************
         try {
@@ -38,10 +36,7 @@ public class GTP {
                 e.printStackTrace();
             }
         }
-
-
     }
-
 }
 
 class GtpUDPRequester extends Thread {
@@ -141,9 +136,7 @@ class RequestHandler extends Thread {
 
                 T1 = localTimer.getTime();
                 oos.writeObject(recvMsg);
-
                 //syncIssuedTimestamp=new Date().getTime();
-
                 recvFbMsg = (Msg) ois.readObject();
                 T2 = localTimer.getTime();
                 if (recvFbMsg.getMsg_type().compareToIgnoreCase("Feedback") == 0) {
@@ -160,7 +153,6 @@ class RequestHandler extends Thread {
                         localTimer.setDistance(recvFbMsg.getDistance() + 1);
                         localTimer.setTime(recvFbMsg.getTime() + roundtripDelay / 2);
                         localTimer.setDISPERSION(msgDispersion);
-
                     }
 
                 } else {
@@ -170,7 +162,6 @@ class RequestHandler extends Thread {
                 recvMsg.setTime(new Date().getTime());
                 oos.writeObject(recvMsg);
             }
-
         }
         catch (EOFException e) {
             try {
@@ -284,7 +275,6 @@ class Timer extends Thread {
     }
 }
 
-
 class TimerUpdater extends Thread {
     Timer localTimer;
 
@@ -304,8 +294,6 @@ class TimerUpdater extends Thread {
         try {
             host = InetAddress.getByName(hostname);
             socket = new DatagramSocket(null);
-
-
 
         // ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
         // ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -331,7 +319,6 @@ class TimerUpdater extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void run() {
