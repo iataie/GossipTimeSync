@@ -11,7 +11,6 @@ public class Client {
         long localTime = d.getTime();
         long syncTimestamp1, syncTimestamp2,syncTimestamp3,syncTimestamp4;
 
-
         Clock clock = new Clock(new Date().getTime());
         clock.start();
 
@@ -26,11 +25,9 @@ public class Client {
         Msg msg1,msg2,msg3,msg4,msg5;
         Date date=new Date();
 
-        //out.println("aaaaaa");
         //oos.writeObject(new Msg());
         //oos.flush();
         //oos.defaultWriteObject();
-
         try {
 
             try {
@@ -48,17 +45,11 @@ public class Client {
 
                         msg2 = (Msg) ois.readObject();
 
-                        //System.out.println("1111111"+msg.getMsg_type());
-
-
                         if ((msg2.getMsg_type()).contains("Sync") != true ) {
                             System.out.println("Error when Sync packet is expected");
                             break;
                         }
-                        //System.out.println("22222222");
-
                         msg3 = (Msg) ois.readObject();
-                        //System.out.println("33333333");
                         syncTimestamp2 = clock.getTime();
                         syncTimestamp1 = msg3.getTime();
 
@@ -85,7 +76,6 @@ public class Client {
                 socket.close();
                 System.exit(0);
             }
-
         } catch (Exception e) {
         }
     }
