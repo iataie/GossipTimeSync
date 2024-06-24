@@ -388,7 +388,7 @@ class TimerUpdater extends Thread {
                 }
                 catch (ConnectException e) {
                     removeNode(msg4GetPeer.getIP_Add());
-                    System.out.println("Node -----> " + msg4GetPeer.getIP_Add() +"<-------- is not accessable");
+                    System.out.println("Node -----> " + msg4GetPeer.getIP_Add() +"<-------- is not accessible");
                     //e.printStackTrace();
                 }
                 catch (ClassNotFoundException e) {
