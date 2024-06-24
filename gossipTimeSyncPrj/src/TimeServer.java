@@ -23,7 +23,6 @@ class Handler extends Thread {
     private BufferedReader in;
     private PrintWriter out;
 
-
     public Handler(Socket socket) {
         this.socket = socket;
     }
@@ -66,17 +65,12 @@ class Handler extends Thread {
                     else{
                         System.out.println("Error when DelayReq packet is expected");
                         break;}
-
-
-
                 }
                 else {
                     r.setTime(new Date().getTime());
                     oos.writeObject(r);
                 }
-
             }
-
         }
         catch (EOFException e){
             try {
