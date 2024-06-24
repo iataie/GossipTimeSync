@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class GTP {
     public static void main(String[] args) {
-
         ServerSocket listener = null;
         Timer localTimer=null;
 
@@ -78,11 +77,11 @@ class GtpUDPRequester extends Thread {
 
                 //socket.receive(packet); //ACK message should be removed.
                 socket.close();
-            /*
-            byte[] data = packet.getData();
-            String time = new String(data);  // convert byte array data into string
-            System.out.println(time);
-            */
+                /*
+                byte[] data = packet.getData();
+                String time = new String(data);  // convert byte array data into string
+                System.out.println(time);
+                */
                 Thread.sleep(3000*GtpUDPRequester.activeNodes);
 
             } catch (Exception e) {
@@ -111,10 +110,8 @@ class RequestHandler extends Thread {
         //long syncIssuedTimestamp,delayRecTimestamp;
 
         try {
-
             //in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             //out = new PrintWriter(socket.getOutputStream(), true);
-
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
@@ -191,13 +188,11 @@ class Timer extends Thread {
     private long cTime;
     private Object timeLock = new Object();
 
-
     long DISPERSION = Long.MAX_VALUE;
     long lastUpdate = -Long.MAX_VALUE;
     double accuarcy = .99;
     int distance = 10000;
-
-
+    
     public Timer(long cT) {
         this.cTime = cT;
     }
@@ -270,7 +265,6 @@ class Timer extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }
@@ -309,7 +303,6 @@ class TimerUpdater extends Thread {
         byte[] Buf = baos.toByteArray();
         packet = new DatagramPacket(Buf, Buf.length, host, port);
         socket.send(packet);
-
         //socket.receive(packet); //ACK message should be removed.
         socket.close();
         } catch (UnknownHostException e) {
@@ -332,7 +325,6 @@ class TimerUpdater extends Thread {
                 try {
                     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                     socket = new Socket("127.0.0.1", 7080);
-
 
                     ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                     ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -372,7 +364,6 @@ class TimerUpdater extends Thread {
                             localTimer.setTime(msg4GetTime.getTime() + roundtripDelay / 2);
                             System.out.println("Accept and Set Clock: " + localTimer.getTime());
                             localTimer.setDISPERSION(msgDispersion);
-
                         }
                         else{
                         System.out.println("Rejected Clock:" + localTimer.getTime());
@@ -383,7 +374,6 @@ class TimerUpdater extends Thread {
                         msg4FbTime.setDispersion(localTimer.CalcDispersion());
                         msg4FbTime.setDistance(localTimer.getDistance());
                         oos4TimeSync.writeObject(msg4FbTime);
-
                     }
                 }
                 catch (ConnectException e) {
@@ -410,13 +400,11 @@ class TimerUpdater extends Thread {
                     //System.exit(0);
                 }
 
-
                 Thread.sleep(2000);
-
+                
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }
